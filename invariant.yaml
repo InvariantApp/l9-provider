@@ -1,0 +1,28 @@
+# Invariant: https://github.com/InvariantApp/Invariant/blob/main/docs/quickstart.md
+api: acme-payments-api
+
+spec:
+  # The specification as it stands on this branch.
+  current: api\openapi.json
+  # The contract this branch builds. Change it in the pull request that
+  # makes the next breaking change, so that release gets a name of its own.
+  currentLabel: "2026-10-04"
+  # Every contract still served to existing callers. The baseline is what
+  # production serves today. Removing one is how you stop serving it.
+  released:
+    "2026-10-04": invariant/contracts/2026-10-04.openapi.json
+
+# How a request says which contract it expects. First match wins. The
+# document declares no version header, so every caller is on the baseline
+# until one is added, for example:
+#   - kind: header
+#     name: api-version
+identity:
+  - kind: default
+    label: "2026-10-04"
+
+# How strictly two judgements are enforced. An unexplained breaking change
+# and a failed verification always block.
+gate:
+  declaredLossy: warn
+  unmigratableWithActiveConsumers: block
