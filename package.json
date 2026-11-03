@@ -1,5 +1,8 @@
 {
   "name": "l9-provider",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@invariant-app/cli": "^0.4.0"
+  }
 }
