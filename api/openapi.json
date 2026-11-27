@@ -4,17 +4,28 @@
     "title": "Acme Payments API",
     "version": "head"
   },
-  "servers": [{ "url": "https://api.acme.test" }],
+  "servers": [
+    {
+      "url": "https://api.acme.test"
+    }
+  ],
   "components": {
     "securitySchemes": {
-      "bearerAuth": { "type": "http", "scheme": "bearer" }
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
     },
     "schemas": {
       "PaymentMethod": {
         "type": "object",
-        "required": ["token"],
+        "required": [
+          "token"
+        ],
         "properties": {
-          "token": { "type": "string" }
+          "token": {
+            "type": "string"
+          }
         }
       },
       "Payment": {
@@ -23,7 +34,6 @@
           "id",
           "object",
           "amount_cents",
-          "currency",
           "payment_method",
           "capture_method",
           "status",
@@ -31,71 +41,188 @@
           "created"
         ],
         "properties": {
-          "id": { "type": "string" },
-          "object": { "type": "string", "enum": ["payment"] },
-          "amount_cents": { "type": "integer", "exclusiveMinimum": 0 },
-          "currency": { "type": "string", "enum": ["usd", "eur", "gbp"] },
-          "payment_method": { "$ref": "#/components/schemas/PaymentMethod" },
-          "capture_method": { "type": "string", "enum": ["automatic", "manual"] },
-          "status": { "type": "string", "enum": ["paid", "failed", "processing"] },
-          "description": { "type": ["string", "null"] },
-          "created": { "type": "integer" }
+          "id": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string",
+            "enum": [
+              "payment"
+            ]
+          },
+          "amount_cents": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          },
+          "payment_method": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "capture_method": {
+            "type": "string",
+            "enum": [
+              "automatic",
+              "manual"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "paid",
+              "failed",
+              "processing"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created": {
+            "type": "integer"
+          }
         }
       },
       "PaymentCreateParams": {
         "type": "object",
-        "required": ["amount_cents", "currency", "payment_method", "capture_method"],
+        "required": [
+          "amount_cents",
+          "currency",
+          "payment_method",
+          "capture_method"
+        ],
         "properties": {
-          "amount_cents": { "type": "integer", "exclusiveMinimum": 0 },
-          "currency": { "type": "string", "enum": ["usd", "eur", "gbp"] },
-          "payment_method": { "$ref": "#/components/schemas/PaymentMethod" },
-          "capture_method": { "type": "string", "enum": ["automatic", "manual"] },
-          "description": { "type": ["string", "null"] }
+          "amount_cents": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "usd",
+              "eur",
+              "gbp"
+            ]
+          },
+          "payment_method": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "capture_method": {
+            "type": "string",
+            "enum": [
+              "automatic",
+              "manual"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
         }
       },
       "PaymentList": {
         "type": "object",
-        "required": ["object", "data", "has_more"],
+        "required": [
+          "object",
+          "data",
+          "has_more"
+        ],
         "properties": {
-          "object": { "type": "string", "enum": ["list"] },
+          "object": {
+            "type": "string",
+            "enum": [
+              "list"
+            ]
+          },
           "data": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Payment" }
+            "items": {
+              "$ref": "#/components/schemas/Payment"
+            }
           },
-          "has_more": { "type": "boolean" }
+          "has_more": {
+            "type": "boolean"
+          }
         }
       },
       "Refund": {
         "type": "object",
-        "required": ["id", "object", "payment", "amount_cents", "status", "created"],
+        "required": [
+          "id",
+          "object",
+          "payment",
+          "amount_cents",
+          "status",
+          "created"
+        ],
         "properties": {
-          "id": { "type": "string" },
-          "object": { "type": "string", "enum": ["refund"] },
-          "payment": { "type": "string" },
-          "amount_cents": { "type": "integer", "exclusiveMinimum": 0 },
-          "status": { "type": "string", "enum": ["succeeded"] },
-          "created": { "type": "integer" }
+          "id": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string",
+            "enum": [
+              "refund"
+            ]
+          },
+          "payment": {
+            "type": "string"
+          },
+          "amount_cents": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "succeeded"
+            ]
+          },
+          "created": {
+            "type": "integer"
+          }
         }
       },
       "RefundCreateParams": {
         "type": "object",
-        "required": ["payment"],
+        "required": [
+          "payment"
+        ],
         "properties": {
-          "payment": { "type": "string" },
-          "amount_cents": { "type": "integer", "exclusiveMinimum": 0 }
+          "payment": {
+            "type": "string"
+          },
+          "amount_cents": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          }
         }
       },
       "Error": {
         "type": "object",
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "properties": {
           "error": {
             "type": "object",
-            "required": ["type", "message"],
+            "required": [
+              "type",
+              "message"
+            ],
             "properties": {
-              "type": { "type": "string" },
-              "message": { "type": "string" },
-              "param": { "type": "string", "x-invariant-error-param": true }
+              "type": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "param": {
+                "type": "string",
+                "x-invariant-error-param": true
+              }
             }
           }
         }
@@ -105,24 +232,40 @@
       "BadRequest": {
         "description": "Invalid request",
         "content": {
-          "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
         }
       },
       "Unauthorized": {
         "description": "Authentication failed",
         "content": {
-          "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
         }
       },
       "NotFound": {
         "description": "Resource not found",
         "content": {
-          "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
         }
       }
     }
   },
-  "security": [{ "bearerAuth": [] }],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "paths": {
     "/v1/payments": {
       "post": {
@@ -132,7 +275,9 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/PaymentCreateParams" }
+              "schema": {
+                "$ref": "#/components/schemas/PaymentCreateParams"
+              }
             }
           }
         },
@@ -140,11 +285,19 @@
           "201": {
             "description": "The created payment",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/Payment" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
             }
           },
-          "400": { "$ref": "#/components/responses/BadRequest" },
-          "401": { "$ref": "#/components/responses/Unauthorized" }
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
         }
       },
       "get": {
@@ -155,7 +308,12 @@
             "name": "limit",
             "in": "query",
             "required": false,
-            "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 10 }
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10
+            }
           }
         ],
         "responses": {
@@ -163,11 +321,15 @@
             "description": "A list of payments",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PaymentList" }
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentList"
+                }
               }
             }
           },
-          "401": { "$ref": "#/components/responses/Unauthorized" }
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
         }
       }
     },
@@ -180,18 +342,28 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "The payment",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/Payment" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
             }
           },
-          "401": { "$ref": "#/components/responses/Unauthorized" },
-          "404": { "$ref": "#/components/responses/NotFound" }
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
         }
       }
     },
@@ -203,7 +375,9 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/RefundCreateParams" }
+              "schema": {
+                "$ref": "#/components/schemas/RefundCreateParams"
+              }
             }
           }
         },
@@ -211,12 +385,22 @@
           "201": {
             "description": "The created refund",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/Refund" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Refund"
+                }
+              }
             }
           },
-          "400": { "$ref": "#/components/responses/BadRequest" },
-          "401": { "$ref": "#/components/responses/Unauthorized" },
-          "404": { "$ref": "#/components/responses/NotFound" }
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
         }
       }
     }
